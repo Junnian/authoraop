@@ -14,12 +14,12 @@ BOT_NAME = 'getauthor'
 SPIDER_MODULES = ['getauthor.spiders']
 NEWSPIDER_MODULE = 'getauthor.spiders'
 # 其中Scrapy下载执行现有的最大请求数。
-CONCURRENT_REQUESTS=6
+# CONCURRENT_REQUESTS=6
 #禁用cookie
 COOKIES_ENABLED=False
 #有这个下载延时的话8个小时爬了3500条还没停止，没有这个的话，1200多就被ban了
 #暂时认为，这种设置下能够一直爬，可以再研究一下换ip
-DOWNLOAD_DELAY=3
+DOWNLOAD_DELAY=1
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'getauthor (+http://www.yourdomain.com)'
@@ -28,7 +28,7 @@ DOWNLOAD_DELAY=3
 ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS = 1
+CONCURRENT_REQUESTS =30
 
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
@@ -95,18 +95,18 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-IPPOOL=[
-    {"ipaddr":"121.8.147.82"},
-    {"ipaddr":"121.232.146.56"},
-    {"ipaddr":"111.40.84.73"},
-    {"ipaddr":"121.232.147.216"},
-    {"ipaddr":"121.232.147.100"},
-    {"ipaddr":"121.232.146.169"},
-    {"ipaddr":"121.232.146.77"},
-    {"ipaddr":"121.232.147.144"},
-    {"ipaddr":"119.57.112.130"},
-    {"ipaddr":"121.232.148.65"},
-]
+# IPPOOL=[
+#     {"ipaddr":"189.96.210.98:8080"},
+#     {"ipaddr":"190.199.64.25:8080"},
+#     {"ipaddr":"27.254.220.4:8080"},
+#     {"ipaddr":"201.217.217.26:8080"},
+#     {"ipaddr":"52.174.89.111:80"},
+#     # {"ipaddr":"121.232.146.169:8080"},
+#     # {"ipaddr":"121.232.146.77"},
+    # {"ipaddr":"121.232.147.144"},
+    # {"ipaddr":"119.57.112.130"},
+    # {"ipaddr":"121.232.148.65"},
+
 
 
 # SCHEDULER = 'getauthor.scrapy_redis.scheduler.Scheduler'
@@ -115,11 +115,11 @@ IPPOOL=[
 #
 # # 种子队列的信息
 # REDIE_URL = None
-# REDIS_HOST = 'localhost'
+# REDIS_HOST = '127.0.0.1'
 # REDIS_PORT = 6379
 #
 # # 去重队列的信息
 # FILTER_URL = None
-# FILTER_HOST = 'localhost'
+# FILTER_HOST = '127.0.0.1'
 # FILTER_PORT = 6379
 # FILTER_DB = 0

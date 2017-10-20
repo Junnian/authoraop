@@ -9,8 +9,8 @@ import time
 
 #cmd = 'scrapy crawl spider -o aerospace.json'
 #这样就可以断点续传了。。ctrl+C发出终止命令后，等待一会就会终止，不要着急，访问队列在crawl文件夹里保存，想要再次访问，在此运行就行
-cmdline.execute("scrapy crawl scholar -s LOG_LEVEL=DEBUG -s JOBDIR=crawl_ID".split())
-# cmdline.execute("scrapy crawl scholar".split())
+# cmdline.execute("scrapy crawl scholar -s LOG_LEVEL=DEBUG -s JOBDIR=crawl_ID".split())
+cmdline.execute("scrapy crawl scholar -s LOG_LEVEL=DEBUG -s JOBDIR=crawl".split())
 # cmdline.execute("scrapy crawl scholar".split())
 # -s LOG_FILE=scrapy.log
 # cmdline.execute("scrapy crawl geturl -o refurl_test.csv".split())
