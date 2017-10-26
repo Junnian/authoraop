@@ -15,7 +15,7 @@ class ScholarSpider(scrapy.Spider):
     allowed_domains = ['scholar.google.com']
     start_urls=[]
     #处理start_urls=[]
-    keys = ['big_data']#之后可以添加
+    keys = ['bigData']#之后可以添加
     for key in keys:
         file_ = 'key/'+key+'.txt'
         with open(file_,'r') as f:
@@ -30,7 +30,6 @@ class ScholarSpider(scrapy.Spider):
     peopleUrl = set() #记录已经爬的人的主页url
 
     def start_requests(self):
-
         #不知道为什么scrawl_ID叠加的起不到相关的作用,是不是并行请求的太多了，我现在把并行的设为16，之前是100，这次应该可以了吧
         while self.scrawl_ID.__len__():
             print self.scrawl_ID.__len__()
