@@ -15,9 +15,16 @@ class ScholarSpider(scrapy.Spider):
     allowed_domains = ['scholar.google.com']
     start_urls=[]
     #处理start_urls=[]
-    keys = ['bigData']#之后可以添加
+    # keys = ['aerospace']#之后可以添加
+    # keys = ['bigdata']
+    # keys = ['biology']
+    # keys = ['infornet']
+    # keys = ['newM']
+    # keys = ['QC']
+    # keys = ['shipB']
+    
     for key in keys:
-        file_ = 'key/'+key+'.txt'
+        file_ = 'new/'+key+'.txt'
         with open(file_,'r') as f:
             list_ = f.readlines()
             for i in list_:

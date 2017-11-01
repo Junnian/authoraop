@@ -13,7 +13,13 @@ class GetauthorPipeline(object):
         dbname = 'authorinfo'  # 设置数据库,也就是这话怕论文的
         client = pymongo.MongoClient(host=host, port=port)
         tdb = client[dbname]
-        self.all = tdb['Scholar2']
+        # self.all = tdb['aerospace']
+        # self.all = tdb['bigdata']
+        # self.all = tdb['biology']
+        # self.all = tdb['infornet']
+        # self.all = tdb['newM']
+        # self.all = tdb['QC']
+        # self.all = tdb['shipBuild']
     def process_item(self, item, spider):
         # items = dict(item)
         #不管重名不重名，主页的url肯定不一样，也一定都有，就以这个为标准插入
