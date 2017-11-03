@@ -11,15 +11,15 @@ from random import random
 Url = 'https://scholar.google.com'
 
 class ScholarSpider(scrapy.Spider):
-    name = 'scholar'
+    name = 'othereauthor'
     allowed_domains = ['scholar.google.com']
     start_urls=[]
     #处理start_urls=[]
     # keys = ['aerospace']#之后可以添加
-    # keys = ['bigdata']
+    keys = ['bigdata']
     # keys = ['biology']
-    # # keys = ['infornet']
-    # keys = ['newM']
+    # keys = ['infornet']
+    keys = ['newM']
     # keys = ['QC']
     # keys = ['shipB']
     
@@ -32,12 +32,15 @@ class ScholarSpider(scrapy.Spider):
                 if ' ' in i:
                     i=i.replace(' ','_')
                     start_urls.append(i)#也就是说有下划线，没下划线的都要
+    scrawl_ID = set(start_urls)  # 记录待爬
+    finish_ID = set()  # 记录已爬
+    peopleUrl = set() #记录已经爬的人的主页url
 
     # keys = ['aerospace']#之后可以添加
     # keys = ['bigData']
     # keys = ['biology']
     # keys = ['informationNetworks']
-    # keys = ['newMaterials']
+    keys = ['newMaterials']
     # keys = ['QuantumCommunication']
     # keys = ['shipBuilding']
     
@@ -49,11 +52,7 @@ class ScholarSpider(scrapy.Spider):
                 start_urls.append(i)
                 if ' ' in i:
                     i=i.replace(' ','_') 
-                    start_urls.append(i)#也就是说有下划线，没下划线的都要
-
-    scrawl_ID = set(start_urls)  # 记录待爬
-    finish_ID = set()  # 记录已爬
-    peopleUrl = set() #记录已经爬的人的主页url
+                    start_urls.append(i)#也就是说有下划线，没下划线的都
 
     def start_requests(self):
         #不知道为什么scrawl_ID叠加的起不到相关的作用,是不是并行请求的太多了，我现在把并行的设为16，之前是100，这次应该可以了吧
@@ -63,15 +62,6 @@ class ScholarSpider(scrapy.Spider):
             self.finish_ID.add(field)  # 加入已爬队列
             url = 'https://scholar.google.com/citations?view_op=search_authors&hl=zh-CN&mauthors=label:'+field
             yield Request(url=url, callback=self.parse1)
-
-
-    ##test
-
-
-    # def start_requests(self):
-    #     url = 'https://scholar.google.com/citations?user=7xN6JqYAAAAJ&hl=zh-CN'
-    #     yield Request(url = url,callback = self.parse_info)
-
     def parse1 (self, response):
         #这个解析函数先处理每个领域第一页的人，用selector
         sel = Selector(response)
@@ -153,24 +143,20 @@ class ScholarSpider(scrapy.Spider):
         yield i
 
         # 把合著作者的信息写在一个文件夹里。设置这个爬虫运行完之后，自动开始另一个爬虫
-        with open("./copurl.txt", "a") as f:
-            for courl in Coauthorurl:
-                url = Url + courl
-                f.write(url + '\n')
-
-
-
-
+        # for courl in Coauthorurl:
+        #     url = Url + courl
+        #     with open("./copurlaa.txt", "a") as f:
+        #         f.write(url + '\n')
         # 最后把补充领域
-        # for field in i['Fields']:
-        #     if field not in self.finish_ID:
-        #         if field not in self.scrawl_ID:
-        #             if ' ' in field:
-        #                 field.replace(' ','_')
-        #                 self.scrawl_ID.add(field)
+        for field in i['Fields']:
+            if field not in self.finish_ID:
+                if field not in self.scrawl_ID:
+                    if ' ' in field:
+                        field.replace(' ','_')
+                        self.scrawl_ID.add(field)
         
-        #                 print '----------add-----------'
-        #                 print self.scrawl_ID.__len__()
-        #                 # print self.scrawl_ID
-        #                 with open("./field_IBQ2.txt", "a") as f:
-        #                     f.write(field + '\n')
+                        print '----------add-----------'
+                        print self.scrawl_ID.__len__()
+                        # print self.scrawl_ID
+                        with open("./field.txt", "a") as f:
+                            f.write(field + '\n')
